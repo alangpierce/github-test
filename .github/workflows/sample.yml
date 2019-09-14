@@ -12,3 +12,7 @@ jobs:
       run: |
         echo Add other actions to build,
         cat README.md
+        echo "Env:"
+        env
+        echo "Action:"
+        cat "${GITHUB_EVENT_PATH}"
