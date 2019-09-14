@@ -4,3 +4,5 @@ Testing GitHub integrations
 foo
 
 bar
+
+baz
