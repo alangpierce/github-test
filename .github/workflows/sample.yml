@@ -2,7 +2,7 @@ name: Log on PR changes
 
 on:
   pull_request:
-    types: [assigned, unassigned, labeled, unlabeled, opened, edited, closed, reopened, synchronize, ready_for_review, locked, unlocked]
+    types: [opened, edited]
 
 jobs:
   build:
@@ -18,3 +18,4 @@ jobs:
         env
         echo "Action:"
         cat "${GITHUB_EVENT_PATH}"
+        node ./check-pr-base.js
