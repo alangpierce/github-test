@@ -11,8 +11,9 @@ const ghAction = require(process.env.GITHUB_EVENT_PATH);
 const baseRefMatched = ghAction.pull_request.base.ref === 'master';
 
 octokit.graphql(`
-  mutation CreateCheck() {
+  mutation CreateCheck {
     createCheckRun(input: {name: "Test check"}) {
+      clientMutationId
     }
   }
 `);
