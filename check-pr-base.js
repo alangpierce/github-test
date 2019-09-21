@@ -3,10 +3,16 @@ if (!process.env.GITHUB_EVENT_PATH) {
   process.exit(0);
 }
 
-const ghAction = require(process.env.GITHUB_EVENT_PATH)
-if (ghAction.pull_request.base.ref === 'master') {
-  console.log("Base ref was correct.");
-} else {
-  console.log("Base ref was wrong! Failing build.");
-  process.exit(1);
-}
+const github = require('@actions/github');
+const octokit = new github.GitHub(process.env.GITHUB_TOKEN);
+
+const ghAction = require(process.env.GITHUB_EVENT_PATH);
+
+const baseRefMatched = ghAction.pull_request.base.ref === 'master';
+
+octokit.graphql(`
+  mutation CreateCheck() {
+    createCheckRun(input: {name: "Test check"}) {
+    }
+  }
+`);

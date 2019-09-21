@@ -1,4 +1,4 @@
-name: Log on PR changes
+name: Check PR base ref
 
 on:
   pull_request:
@@ -10,7 +10,7 @@ jobs:
     
     steps:
     - uses: actions/checkout@v1
-    - name: Run a multi-line script
+    - name: Check PR base ref
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
@@ -20,4 +20,5 @@ jobs:
         env
         echo "Action:"
         cat "${GITHUB_EVENT_PATH}"
+        yarn
         node ./check-pr-base.js
