@@ -5,7 +5,7 @@ if (!process.env.GITHUB_EVENT_PATH) {
 
 const graphql = require('@octokit/graphql').graphql.defaults({
   headers: {
-    authorization: `token: ${process.env.GITHUB_TOKEN}`,
+    authorization: `token ${process.env.GITHUB_TOKEN}`,
     accept: 'application/vnd.github.antiope-preview+json',
   }
 });
