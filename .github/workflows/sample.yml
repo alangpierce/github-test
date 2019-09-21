@@ -1,6 +1,8 @@
 name: Log on PR changes
 
-on: [pull_request]
+on:
+  pull_request:
+    types: [opened, edited]
 
 jobs:
   build:
@@ -16,3 +18,4 @@ jobs:
         env
         echo "Action:"
         cat "${GITHUB_EVENT_PATH}"
+        node ./check-pr-base.js
