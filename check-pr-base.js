@@ -4,7 +4,7 @@ if (!process.env.GITHUB_EVENT_PATH) {
 }
 
 const github = require('@actions/github');
-const octokit = new github.GitHub(process.env.GITHUB_TOKEN, {previews: ['antiope']});
+const octokit = new github.GitHub(process.env.GITHUB_TOKEN, {previews: ['antiope-preview']});
 
 const ghAction = require(process.env.GITHUB_EVENT_PATH);
 
