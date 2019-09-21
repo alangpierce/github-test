@@ -13,10 +13,19 @@ const graphql = require('@octokit/graphql').graphql.defaults({
 const ghAction = require(process.env.GITHUB_EVENT_PATH);
 const baseRefMatched = ghAction.pull_request.base.ref === 'master';
 
+console.log(`Sending args:`);
+console.log({
+  repoId: ghAction.pull_request.head.repo.node_id,
+  headSha: ghAction.pull_request.head.sha,
+});
+
 graphql(`
-  mutation CreateCheck {
-    createCheckRun(input: {name: "Test check"}) {
+  mutation CreateCheck($repoId: ID!, $headSha: GitObjectID!) {
+    createCheckRun(input: {name: "Test check", repositoryId: $repoId, headSha: $headSha}) {
       clientMutationId
     }
   }
-`);
+`, {
+  repoId: ghAction.pull_request.head.repo.node_id,
+  headSha: ghAction.pull_request.head.sha,
+});
