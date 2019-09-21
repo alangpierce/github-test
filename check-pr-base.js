@@ -3,14 +3,17 @@ if (!process.env.GITHUB_EVENT_PATH) {
   process.exit(0);
 }
 
-const github = require('@actions/github');
-const octokit = new github.GitHub(process.env.GITHUB_TOKEN, {previews: ['antiope-preview']});
+const graphql = require('@octokit/graphql').graphql.defaults({
+  headers: {
+    authorization: `token: ${process.env.GITHUB_TOKEN}`,
+    accept: 'application/vnd.github.antiope-preview+json',
+  }
+});
 
 const ghAction = require(process.env.GITHUB_EVENT_PATH);
-
 const baseRefMatched = ghAction.pull_request.base.ref === 'master';
 
-octokit.graphql(`
+graphql(`
   mutation CreateCheck {
     createCheckRun(input: {name: "Test check"}) {
       clientMutationId
