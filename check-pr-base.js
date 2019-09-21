@@ -20,7 +20,7 @@ console.log({
 });
 
 graphql(`
-  mutation CreateCheck($repoId: ID!, $headSha: GitObjectID!) {
+  mutation CreateCheck($repoId: ID!, $headSha: GitObjectID!, $conclusion: CheckConclusionState!) {
     createCheckRun(input: {name: "Base ref matches", repositoryId: $repoId, headSha: $headSha, status: COMPLETED, conclusion: FAILURE}) {
       clientMutationId
     }
@@ -28,5 +28,5 @@ graphql(`
 `, {
   repoId: ghAction.pull_request.head.repo.node_id,
   headSha: ghAction.pull_request.head.sha,
-  // conclusion: baseRefMatched ? "SUCCESS" : "FAILURE",
+  conclusion: baseRefMatched ? "SUCCESS" : "FAILURE",
 });
