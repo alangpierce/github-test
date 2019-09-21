@@ -21,7 +21,7 @@ console.log({
 
 graphql(`
   mutation CreateCheck($repoId: ID!, $headSha: GitObjectID!, $conclusion: CheckConclusionState!) {
-    createCheckRun(input: {name: "Base ref matches", repositoryId: $repoId, headSha: $headSha, status: COMPLETED, conclusion: FAILURE}) {
+    createCheckRun(input: {name: "Base ref matches", repositoryId: $repoId, headSha: $headSha, status: COMPLETED, conclusion: $conclusion}) {
       clientMutationId
     }
   }
