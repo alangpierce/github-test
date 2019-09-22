@@ -2,7 +2,7 @@ name: Check PR base ref
 
 on:
   pull_request:
-    types: [opened, edited]
+    types: [opened, edited, synchronize]
 
 jobs:
   build:
